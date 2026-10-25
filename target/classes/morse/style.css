@@ -1,0 +1,140 @@
+/* morse hotel - visual do habbo clássico (2005-2006) */
+
+/* paleta de cores */
+.root {
+    -ceu-topo: #7EC8EE;       /* céu da hotel view (em cima) */
+    -ceu-base: #D4EEFB;       /* céu da hotel view (embaixo) */
+    -laranja-habbo: #D75C03;  /* cabeçalhos laranja */
+    -azul-habbo: #2A6FA8;     /* cabeçalho azul */
+    -dourado-habbo: #F7C716;  /* botões e raiz da árvore */
+    -branco: #FFFFFF;         /* fundo dos módulos e balões */
+    -preto: #000000;          /* bordas e textos */
+}
+
+/* fundo com o céu e fonte pixel pequena */
+.app {
+    -fx-background-color: linear-gradient(to bottom, -ceu-topo, -ceu-base);
+    -fx-padding: 12;
+    -fx-spacing: 12;
+    -fx-font-size: 9px;
+}
+
+/* tons de cinza para a fonte pixel não ficar borrada */
+.text {
+    -fx-font-smoothing-type: gray;
+}
+
+/* módulo: fundo branco, borda preta e cantinho arredondado */
+.module {
+    -fx-background-color: -branco;
+    -fx-background-radius: 4;
+    -fx-border-color: -preto;
+    -fx-border-radius: 4;
+}
+
+.module-header {
+    -fx-background-radius: 3 3 0 0;
+    -fx-text-fill: -branco;
+    -fx-font-weight: bold;
+    -fx-padding: 5 8;
+}
+
+.module-header.orange {
+    -fx-background-color: -laranja-habbo;
+}
+
+.module-header.blue {
+    -fx-background-color: -azul-habbo;
+}
+
+.module-body {
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+/* botão amarelo, fica mais claro no hover e mais escuro quando aperta */
+.button {
+    -fx-background-color: -dourado-habbo;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4;
+    -fx-border-color: -preto;
+    -fx-border-radius: 4;
+    -fx-text-fill: -preto;
+    -fx-font-weight: bold;
+    -fx-padding: 5 12;
+}
+
+.button:hover {
+    -fx-background-color: derive(-dourado-habbo, 40%);
+}
+
+.button:pressed {
+    -fx-background-color: derive(-dourado-habbo, -20%);
+    -fx-translate-x: 1;
+    -fx-translate-y: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 1, 1);
+}
+
+/* campo de texto branco com borda preta, sem aquele brilho azul do foco */
+.text-field {
+    -fx-background-color: -branco;
+    -fx-background-insets: 0;
+    -fx-background-radius: 3;
+    -fx-border-color: -preto;
+    -fx-border-radius: 3;
+    -fx-prompt-text-fill: gray;
+    -fx-padding: 5 6;
+}
+
+/* resultado no formato de balão de chat do habbo */
+.bubble {
+    -fx-background-color: -branco;
+    -fx-background-radius: 8;
+    -fx-border-color: -preto;
+    -fx-border-radius: 8;
+    -fx-text-fill: -preto;
+    -fx-wrap-text: true;
+    -fx-padding: 6 10;
+}
+
+/* sombra dura, sem desfoque */
+.module, .button, .bubble {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 2, 2);
+}
+
+/* negrito da volter: a fonte só tem o peso normal, então o texto é repetido 1px para a direita */
+.module-header .text {
+    -fx-effect: dropshadow(gaussian, -branco, 0, 0, 1, 0);
+}
+
+.button .text, .tree Text {
+    -fx-effect: dropshadow(gaussian, -preto, 0, 0, 1, 0);
+}
+
+/* árvore: scrollpane sem borda e sem padding, senão aparecem barras de rolagem */
+.scroll-pane, .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.tree Rectangle {
+    -fx-fill: -branco;
+    -fx-stroke: -preto;
+    -fx-stroke-type: inside;
+    -fx-arc-width: 6;
+    -fx-arc-height: 6;
+}
+
+.tree .tree-root {
+    -fx-fill: -dourado-habbo;
+}
+
+.tree Line {
+    -fx-stroke: -preto;
+    -fx-stroke-width: 1.5;
+}
+
+.tree Text {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
