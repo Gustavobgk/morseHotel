@@ -37,6 +37,7 @@ public class HabboBoneco extends Pane {
     private final Label balao = new Label("oi! codifique algo");
     private final ImageView sprite = new ImageView();
     private final SomMorse som = new SomMorse();
+    private final VozPortugues voz = new VozPortugues();
     private final Image[] quadros = new Image[ARQUIVOS.length];
     private final boolean temSprite;
     private final Timeline piscar;
@@ -95,6 +96,7 @@ public class HabboBoneco extends Pane {
 
     // fala o morse símbolo por símbolo: boca curta no ponto, longa no traço
     public void falar(String morse) {
+        voz.parar();
         som.parar();
         som.tocarMorse(morse);
         Timeline nova = new Timeline();
@@ -119,8 +121,10 @@ public class HabboBoneco extends Pane {
         tocar(nova, tempo);
     }
 
-    // mostra o texto de uma vez e mexe a boca algumas vezes
+    // mostra o texto de uma vez, fala em português e mexe a boca algumas vezes
     public void dizer(String texto) {
+        som.parar();
+        voz.falar(texto);
         Timeline nova = new Timeline();
         double tempo = 0;
         for (int i = 0; i < 4; i++) {
