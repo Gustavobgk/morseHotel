@@ -138,3 +138,40 @@
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
+
+/* tela da esquerda com os módulos */
+.tela {
+    -fx-spacing: 12;
+}
+
+/* sala de aula à direita, com borda e sombra dura igual aos módulos */
+.habbo-sala {
+    -fx-background-color: -branco;
+    -fx-border-color: -preto;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 2, 2);
+}
+
+.habbo-balao {
+    -fx-max-width: 180;
+    -fx-min-height: 26;
+}
+
+/* cores do boneco reserva */
+.habbo-pele {
+    -fx-fill: #F5C99B;
+    -fx-stroke: -preto;
+}
+
+.habbo-camisa {
+    -fx-fill: -laranja-habbo;
+    -fx-stroke: -preto;
+}
+
+.habbo-calca {
+    -fx-fill: -azul-habbo;
+    -fx-stroke: -preto;
+}
+
+.habbo-rosto {
+    -fx-fill: -preto;
+}

@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -22,16 +23,30 @@ public class MorseApp extends Application {
     private final TextField campoMorse = new TextField();
     private final Label resultadoMorse = new Label("o código Morse aparece aqui");
     private final Label resultadoPalavra = new Label("a palavra aparece aqui");
+    private final HabboBoneco boneco = new HabboBoneco();
 
     @Override
     public void start(Stage janela) {
-        VBox raiz = montarTela();
+        VBox tela = montarTela();
+        tela.setMinWidth(Region.USE_PREF_SIZE);
+        HBox raiz = new HBox(tela, boneco);
+        raiz.getStyleClass().add("app");
+        // a escola usa o espaço que sobra ao lado dos módulos; se não couber, some
+        raiz.widthProperty().addListener(mudou -> ajustarEscola(raiz, tela));
+        raiz.heightProperty().addListener(mudou -> ajustarEscola(raiz, tela));
         raiz.setStyle("-fx-font-family: '" + carregarFontePixel() + "';");
         Scene cena = new Scene(raiz);
         cena.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         janela.setTitle("Morse Hotel");
         janela.setScene(cena);
         janela.show();
+    }
+
+    private void ajustarEscola(HBox raiz, VBox tela) {
+        double larguraLivre = raiz.getWidth() - raiz.getInsets().getLeft() - raiz.getInsets().getRight()
+                - raiz.getSpacing() - tela.prefWidth(-1);
+        double alturaLivre = raiz.getHeight() - raiz.getInsets().getTop() - raiz.getInsets().getBottom();
+        boneco.ajustar(larguraLivre, alturaLivre);
     }
 
     // módulos de codificar, decodificar, árvore e legenda no rodapé
@@ -52,7 +67,7 @@ public class MorseApp extends Application {
                 criarModulo("Decodificar", "blue", new HBox(8, campoMorse, botaoDecodificar), resultadoPalavra),
                 criarModulo("Árvore", "orange", new ScrollPane(new TreeRenderer().desenharArvore(arvore))),
                 new Label(". = esquerda │ - = direita")); 
-        tela.getStyleClass().add("app");
+        tela.getStyleClass().add("tela");
         return tela;
     }
 
@@ -70,12 +85,16 @@ public class MorseApp extends Application {
 
     // requisito 2 - botão para codificar de palavra para morse
     private void codificar() {
-        resultadoMorse.setText(arvore.codificarTexto(campoPalavra.getText()));
+        String morse = arvore.codificarTexto(campoPalavra.getText());
+        resultadoMorse.setText(morse);
+        boneco.falar(morse);
     }
 
     // requisito 3 - botão decodificar de morse para palavra
     private void decodificar() {
-        resultadoPalavra.setText(arvore.decodificarMorse(campoMorse.getText()));
+        String palavra = arvore.decodificarMorse(campoMorse.getText());
+        resultadoPalavra.setText(palavra);
+        boneco.dizer(palavra);
     }
 
     // carrega a fonte volter, caso não tiver o arquivo usa verdana ou monospaced
