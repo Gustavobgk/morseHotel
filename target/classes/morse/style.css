@@ -103,11 +103,11 @@
 }
 
 /* negrito da volter: a fonte só tem o peso normal, então o texto é repetido 1px para a direita */
-.module-header .text {
+.module-header .text, .tab:selected .text {
     -fx-effect: dropshadow(gaussian, -branco, 0, 0, 1, 0);
 }
 
-.button .text, .tree Text {
+.button .text, .tree Text, .tab .text {
     -fx-effect: dropshadow(gaussian, -preto, 0, 0, 1, 0);
 }
 
@@ -137,4 +137,84 @@
 .tree Text {
     -fx-font-size: 18px;
     -fx-font-weight: bold;
+}
+
+/* tela da esquerda com os módulos */
+.tela {
+    -fx-spacing: 12;
+}
+
+/* sala de aula à direita, com borda e sombra dura igual aos módulos */
+.habbo-sala {
+    -fx-background-color: -branco;
+    -fx-border-color: -preto;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 0, 0, 2, 2);
+}
+
+.habbo-balao {
+    -fx-max-width: 180;
+    -fx-min-height: 26;
+}
+
+/* cores do boneco reserva */
+.habbo-pele {
+    -fx-fill: #F5C99B;
+    -fx-stroke: -preto;
+}
+
+.habbo-camisa {
+    -fx-fill: -laranja-habbo;
+    -fx-stroke: -preto;
+}
+
+.habbo-calca {
+    -fx-fill: -azul-habbo;
+    -fx-stroke: -preto;
+}
+
+.habbo-rosto {
+    -fx-fill: -preto;
+}
+
+/* abas da árvore (completa e letras usadas), no estilo das abas do site do habbo */
+.tab-pane > .tab-header-area {
+    -fx-padding: 0 0 0 4;
+}
+
+.tab-pane > .tab-header-area > .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+/* sem fundo e com espaço para a sombra do módulo não ser cortada */
+.tab-pane > .tab-content-area {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2 2 0;
+}
+
+.tab {
+    -fx-background-color: -branco;
+    -fx-background-insets: 0;
+    -fx-background-radius: 4 4 0 0;
+    -fx-border-color: -preto;
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 4 4 0 0;
+    -fx-padding: 3 10;
+}
+
+.tab:selected {
+    -fx-background-color: -laranja-habbo;
+}
+
+.tab .tab-label {
+    -fx-text-fill: -preto;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: -branco;
+}
+
+/* tira o contorno azul de foco da aba */
+.tab .focus-indicator {
+    -fx-border-color: transparent;
 }

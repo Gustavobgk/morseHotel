@@ -16,6 +16,13 @@ public class ArvoreMorse {
         montarArvore();
     }
 
+    // árvore só com as letras de um texto (usada na aba das letras usadas na tradução)
+    public ArvoreMorse(String texto) {
+        for (char letra : texto.toUpperCase().toCharArray()) {
+            if (letra >= 'A' && letra <= 'Z') inserir(letra, TABELA_MORSE[letra - 'A']);
+        }
+    }
+
     public NoMorse getRaiz() {
         return raiz;
     }

@@ -1,4 +1,7 @@
 morse\ArvoreMorse.class
-morse\TreeRenderer.class
 morse\MorseApp.class
+morse\HabboBoneco.class
+morse\VozPortugues.class
+morse\SomMorse.class
+morse\TreeRenderer.class
 morse\NoMorse.class

@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -24,6 +26,8 @@ public class MorseApp extends Application {
     private final Label resultadoMorse = new Label("o código Morse aparece aqui");
     private final Label resultadoPalavra = new Label("a palavra aparece aqui");
     private final HabboBoneco boneco = new HabboBoneco();
+    private final Tab abaLetrasUsadas = new Tab("letras usadas");
+    private final ScrollPane arvoreLetrasUsadas = new ScrollPane();
 
     @Override
     public void start(Stage janela) {
@@ -62,11 +66,19 @@ public class MorseApp extends Application {
         resultadoMorse.getStyleClass().add("bubble");
         resultadoPalavra.getStyleClass().add("bubble");
 
+        // duas abas: a árvore completa e a árvore só com as letras da última tradução
+        Tab abaCompleta = new Tab("árvore completa",
+                criarModulo("Árvore", "orange", new ScrollPane(new TreeRenderer().desenharArvore(arvore))));
+        abaLetrasUsadas.setContent(criarModulo("Árvore", "orange", arvoreLetrasUsadas));
+        abaLetrasUsadas.setDisable(true); // só libera depois da primeira tradução
+        TabPane abas = new TabPane(abaCompleta, abaLetrasUsadas);
+        abas.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
         VBox tela = new VBox(
                 criarModulo("Codificar", "orange", new HBox(8, campoPalavra, botaoCodificar), resultadoMorse),
                 criarModulo("Decodificar", "blue", new HBox(8, campoMorse, botaoDecodificar), resultadoPalavra),
-                criarModulo("Árvore", "orange", new ScrollPane(new TreeRenderer().desenharArvore(arvore))),
-                new Label(". = esquerda │ - = direita")); 
+                abas,
+                new Label(". = esquerda │ - = direita"));
         tela.getStyleClass().add("tela");
         return tela;
     }
@@ -88,6 +100,7 @@ public class MorseApp extends Application {
         String morse = arvore.codificarTexto(campoPalavra.getText());
         resultadoMorse.setText(morse);
         boneco.falar(morse);
+        mostrarLetrasUsadas(campoPalavra.getText());
     }
 
     // requisito 3 - botão decodificar de morse para palavra
@@ -95,6 +108,14 @@ public class MorseApp extends Application {
         String palavra = arvore.decodificarMorse(campoMorse.getText());
         resultadoPalavra.setText(palavra);
         boneco.dizer(palavra);
+        mostrarLetrasUsadas(palavra);
+    }
+
+    // desenha a árvore só com as letras da tradução e abre a aba dela
+    private void mostrarLetrasUsadas(String texto) {
+        arvoreLetrasUsadas.setContent(new TreeRenderer().desenharArvore(new ArvoreMorse(texto)));
+        abaLetrasUsadas.setDisable(false);
+        abaLetrasUsadas.getTabPane().getSelectionModel().select(abaLetrasUsadas);
     }
 
     // carrega a fonte volter, caso não tiver o arquivo usa verdana ou monospaced
